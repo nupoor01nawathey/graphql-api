@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 
-import { getBookList } from '../queries/queries';
+import { getBookQuery } from '../queries/queries';
+
+// components
+import BookDetails from './BookDetails';
 
 class BookList extends Component {
     displayBooks() {
+        console.log(this.props);
         const data = this.props.data;
         if(data.loading) {
             // data not available
-            return (<div>
-                Loading Books
-            </div>);
+            return (<div>Loading Books</div>);
         } else {
             return (
                 data.books.map(book => {
@@ -23,15 +25,15 @@ class BookList extends Component {
     }
 
     render(){
-        
         return(
             <div>
                 <ul id="book-list">
                     { this.displayBooks() }
                 </ul>
+                <BookDetails />
             </div>
         );
     }
 }
 
-export default graphql(getBookList)(BookList);
+export default graphql(getBookQuery)(BookList);
